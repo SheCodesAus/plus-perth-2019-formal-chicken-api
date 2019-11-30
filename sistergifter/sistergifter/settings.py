@@ -25,7 +25,7 @@ SECRET_KEY = '8wl&b25f0!)s_q2c!&y-1f2#*!o2!^acqhkc-9*q6e9t+t=ggt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['desktop-2vfc2sn']
+ALLOWED_HOSTS = ['desktop-2vfc2sn','sistaregifta-api.herokuapp.com']
 
 CORS_ORIGIN_ALLOW_ALL=True
 # Application definition
