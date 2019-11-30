@@ -1,1 +1,1 @@
-web: cd sistergifter && waitress-serve --port=80 sistergifter.wsgi:application
+web: cd sistergifter && waitress-serve --port=$PORT sistergifter.wsgi:application
