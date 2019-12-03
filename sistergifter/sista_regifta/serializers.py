@@ -9,8 +9,6 @@ class GiftSerializer(serializers.ModelSerializer):
         
         # , 'gift_photo', 'date_added', 'sender']
 
-
-
 class SwapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Swap
