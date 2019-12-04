@@ -17,14 +17,18 @@ from django.contrib import admin
 from django.contrib import admin
 from django.urls import path, include               
 from rest_framework import routers                    
-from sista_regifta import views    
+from sista_regifta import views
+# from sista_regifta.views import emailtest 
 
                         
 router = routers.DefaultRouter()                      
 router.register(r'gift', views.GiftView, 'gift')    
-router.register(r'swap', views.SwapView, 'swap')   
+router.register(r'swap', views.SwapView, 'swap')
+# router.register(r'email', emailtest, 'email')   
 
 urlpatterns = [
     path('admin/', admin.site.urls),         
-    path('api/', include(router.urls)),               
+    path('api/', include(router.urls)),   
+    # path('email/', emailtest, name='emailtest')   
+    # path('email/', send_mail, name='send_mail')           
     ]
