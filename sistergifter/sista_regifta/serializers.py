@@ -5,14 +5,14 @@ from django.contrib.auth.models import User
 class GiftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Gift
-        fields = ['gift_name', 'gift_description', 'gift_photo']
+        fields = ['gift_name', 'gift_description', 'gift_photo', 'sender_id']
         
         # , 'gift_photo', 'date_added', 'sender']
 
 class SwapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Swap
-        fields = ['gift_id', 'recipient', 'match_date', 'gift_status', 'thank_you_message']
+        fields = ['gift_id', 'sender', 'recipient', 'match_date', 'gift_status', 'thank_you_message']
 
 
 class ProfileSerializer(serializers.ModelSerializer):

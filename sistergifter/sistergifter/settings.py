@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,6 +36,17 @@ ALLOWED_HOSTS = [
 
 CORS_ORIGIN_ALLOW_ALL=True
 # Application definition
+
+#SendGrid Settings
+EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+# SENDGRID_API_KEY = os.environ.get(SENDGRID_API_KEY)
+SENDGRID_API_KEY=os.getenv('SENDGRID_API_KEY')
+EMAIL_HOST_USER ='BigChick'
+EMAIL_HOST_PASSWORD= os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+SENDGRID_SANDBOX_MODE_IN_DEBUG=False
 
 INSTALLED_APPS = [
     'sista_regifta.apps.SistaRegiftaConfig',
@@ -148,7 +163,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+##Changed this as getting naive date time errors
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
