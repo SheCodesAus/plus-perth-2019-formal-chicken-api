@@ -24,4 +24,20 @@ class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False, required=False)
     class Meta:
         model = User
-        fields = ['id', 'url', 'username', 'email', 'first_name', 'last_name','profile']
+        fields = ['id', 'url', 'username', 'password','email', 'first_name', 'last_name','profile']
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        user = User(**validated_data)
+        user.save()
+        user.set_password(password)
+        return user
+
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password')
+        for f in UserSerializer.Meta.fields + UserSerializer.Meta.write_only_fields:
+            set_attr(instance, f, validated_data[f])
+        instance.set_password(validated_data['password'])
+        user.set_password(password)
+        instance.save()
+        return instance
