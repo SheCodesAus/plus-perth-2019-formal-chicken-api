@@ -8,12 +8,15 @@ from rest_framework.permissions import IsAuthenticated
 
 class GiftView(viewsets.ModelViewSet):       
     serializer_class = GiftSerializer         
-    queryset = Gift.objects.all()              
+    queryset = Gift.objects.all()
+    
+    class Meta:
+        ordering = ['-id']      
 
 
 class SwapView(viewsets.ModelViewSet):       
     serializer_class = SwapSerializer         
-    queryset = Swap.objects.all()    
+    queryset = Swap.objects.all()
 
 
 class UserViewSet(viewsets.ModelViewSet):
