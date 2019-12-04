@@ -14,21 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib import admin
 from django.urls import path, include               
 from rest_framework import routers                    
-from sista_regifta import views
+from sista_regifta import views    
+from rest_framework_simplejwt import views as jwt_views
 # from sista_regifta.views import emailtest 
 
                         
 router = routers.DefaultRouter()                      
 router.register(r'gift', views.GiftView, 'gift')    
-router.register(r'swap', views.SwapView, 'swap')
+router.register(r'swap', views.SwapView, 'swap')   
+router.register(r'user', views.UserViewSet, 'user')   
 # router.register(r'email', emailtest, 'email')   
 
 urlpatterns = [
     path('admin/', admin.site.urls),         
-    path('api/', include(router.urls)),   
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('sista_regifta/', include('sista_regifta.urls')),
+]
     # path('email/', emailtest, name='emailtest')   
     # path('email/', send_mail, name='send_mail')           
-    ]
