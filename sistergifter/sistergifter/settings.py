@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 
 
@@ -35,9 +37,9 @@ CORS_ORIGIN_ALLOW_ALL=True
 #SendGrid Settings
 EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
 # SENDGRID_API_KEY = os.environ.get(SENDGRID_API_KEY)
-SENDGRID_API_KEY='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'
-EMAIL_HOST_USER = 'BigChick'
-EMAIL_HOST_PASSWORD='cluckcluck66'
+SENDGRID_API_KEY=os.getenv('SENDGRID_API_KEY')
+EMAIL_HOST_USER ='BigChick'
+EMAIL_HOST_PASSWORD= os.getenv('EMAIL_HOST_PASSWORD')
 # EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

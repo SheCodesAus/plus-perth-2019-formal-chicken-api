@@ -47,6 +47,7 @@ def create_swap(item1, item2):
     item2.gift_waiting = False
     item1.save()
     item2.save()
+    ##need to send emails here
 
 
 

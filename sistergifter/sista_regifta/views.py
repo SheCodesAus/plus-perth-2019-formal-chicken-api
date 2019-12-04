@@ -24,7 +24,7 @@ class ProfileView(viewsets.ModelViewSet):
 #     'Test message2',
 #     'Well I will be very suprised if this works.',
 #     'bigchick@sistaregifta.com',
-#     ['annacallan@gmail.com', 'accallan@yahoo.com'],
+#     ['email@test.com'],
 #     fail_silently=False,
 # )
 
@@ -32,23 +32,6 @@ class ProfileView(viewsets.ModelViewSet):
 #     'Anna is a Django wiz',
 #     "Well this is a fun automated message from Anna's app. Please enjoy it",
 #     'bigchick@sistaregifta.com',
-#     ['annacallan@gmail.com', 'accallan@yahoo.com'],
+#     ['email@test.com'],
 #     fail_silently=False,
 # )
-
-# def emailtest(request):
-#     subject = 'Thank you for registering to our site',
-#     message = ' Please let this work ',
-#     email_from = settings.EMAIL_HOST_USER,
-#     recipient_list = ['annacallan@gmail.com', 'accallan@yahoo.com' ]
-#     send_mail( subject, message, email_from, recipient_list )
-#     fail_silently=False,
-#     return redirect('/swap/')
-
-# def email(request):
-#     subject = 'Hey Sarah'
-#     message = 'Youre the best'
-#     email_from = settings.EMAIL_HOST_USER
-#     recipient_list = ['sarahjeanlevins@gmail.com',]
-#     send_mail( subject, message, email_from, recipient_list )
-#     return redirect('/movies/')
