@@ -12,7 +12,7 @@ class GiftSerializer(serializers.ModelSerializer):
 class SwapSerializer(serializers.ModelSerializer):
     class Meta:
         model = Swap
-        fields = ['gift_id', 'sender', 'recipient', 'match_date', 'gift_status', 'thank_you_message']
+        fields = ['id', 'gift_id', 'sender', 'recipient', 'match_date', 'gift_status', 'thank_you_message']
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -24,7 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(many=False, required=False)
     class Meta:
         model = User
-        fields = ['id', 'url', 'username', 'password','email', 'first_name', 'last_name','profile']
+        fields = ['id', 'url', 'username', 'password','email', 'first_name', 'last_name', 'profile']
 
     def create(self, validated_data):
         password = validated_data.pop('password')
