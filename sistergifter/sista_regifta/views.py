@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from rest_framework import viewsets      
-from .serializers import GiftSerializer, SwapSerializer, UserSerializer      
+from .serializers import GiftSerializer, SwapSerializer, UserSerializer, ProfileSerializer      
 from .models import Gift, Swap, Profile                     
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated
@@ -13,12 +13,33 @@ class GiftView(viewsets.ModelViewSet):
     queryset = Gift.objects.all()
     
     class Meta:
-        ordering = ['-id']      
+        ordering = ['-id']    
+
+    # def get_queryset(self):
+    #     """
+    #     This view should return a list of all the gifts
+    #     for which the currently authenticated user is the sender.
+    #     """
+    #     User = self.request.sender
+    #     return Gift.objects.filter(sender=User)  
+
+
+        # def get_queryset(self):
+        #     """
+        #     This view should return a list of all the purchases for
+        #     the user as determined by the username portion of the URL.
+        #     """
+        #     sender = self.kwargs['sender']
+        #     return Gift.objects.filter(sender=sender)
 
 
 class SwapView(viewsets.ModelViewSet):       
     serializer_class = SwapSerializer         
     queryset = Swap.objects.all()
+
+class ProfileView(viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -27,6 +48,14 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 
  
+# send_mail(
+#         'Sista Regifta Swap created',
+#         'Your gift has been matched! Please post your gift to xxxx.',
+#         'bigchick@sistaregifta.com',
+#         ['swap.sender.email'],
+#         fail_silently=False,
+#         )
+
 # send_mail(
 #     'Test message2',
 #     'Well I will be very suprised if this works.',
