@@ -106,12 +106,26 @@ WSGI_APPLICATION = 'sistergifter.wsgi.application'
 #     }
 # }
 
+
+##Meagan's database for deployment
+# DATABASES = {
+#   "default": {
+#     "ENGINE": "django.db.backends.postgresql_psycopg2",
+#     "NAME": "formal_chicken",
+#     "USER": "postgres",
+#     "PASSWORD": "",
+#     "HOST": "localhost",
+#     "PORT": "5432",
+#   }
+# }
+
+
 DATABASES = {
   "default": {
     "ENGINE": "django.db.backends.postgresql_psycopg2",
     "NAME": "formal_chicken",
-    "USER": "postgres",
-    "PASSWORD": "",
+    "USER": "big_chick",
+    "PASSWORD": "cluckcluck",
     "HOST": "localhost",
     "PORT": "5432",
   }
