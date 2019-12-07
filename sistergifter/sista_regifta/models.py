@@ -22,9 +22,6 @@ class Gift(models.Model):
 
     def __str__(self):
         return self.gift_name
-
-    def get_old_gift(self):
-        return Gift.objects.all().filter(gift_waiting = True).exclude(sender = self.sender).first()
     
     def save(self, *args, **kwargs):
         """ run on save """
@@ -33,23 +30,23 @@ class Gift(models.Model):
 
         # Check to see if already matched
         if self.gift_waiting:
-                new_gift= self
-                old_gift = self.get_old_gift()
-                create_swap(old_gift, new_gift)
+            create_swap(self)
 
 
 # you probably want to turn on atomic transactions for this view.
 
                 
-def create_swap(old_gift, new_gift):
-    newswap1 = Swap.objects.create(sender=old_gift.sender, recipient=new_gift.sender, gift_id =old_gift, gift_status ="", )
-    newswap2 = Swap.objects.create(sender=new_gift.sender, recipient=old_gift.sender, gift_id =new_gift, gift_status ="", )
-    newswap1.match_date = datetime.now()
-    newswap2.match_date = datetime.now()
-    new_gift.gift_waiting = False
-    old_gift.gift_waiting = False
-    newswap1.save()
-    newswap2.save()
+def create_swap(new_gift):
+    old_gift = Gift.objects.all().filter(gift_waiting = True).exclude(sender = new_gift.sender).first()
+    if old_gift:
+        newswap1 = Swap.objects.create(sender=old_gift.sender, recipient=new_gift.sender, gift_id =old_gift, gift_status ="", )
+        newswap2 = Swap.objects.create(sender=new_gift.sender, recipient=old_gift.sender, gift_id =new_gift, gift_status ="", )
+        newswap1.match_date = datetime.now()
+        newswap2.match_date = datetime.now()
+        new_gift.gift_waiting = False
+        old_gift.gift_waiting = False
+        newswap1.save()
+        newswap2.save()
 #     ##need to send emails here
 
 #     send_mail(

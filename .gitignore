@@ -4,3 +4,4 @@ myenv/
 sistergifter/mydatabase
 *.pyc
 *.DS_Store
+**/media/*

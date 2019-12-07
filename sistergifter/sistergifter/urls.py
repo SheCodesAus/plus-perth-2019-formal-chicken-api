@@ -22,7 +22,7 @@ from rest_framework_simplejwt import views as jwt_views
 
                         
 router = routers.DefaultRouter()                      
-# router.register(r'gift', views.GiftView, 'gift')    
+router.register(r'gift', views.GiftView, 'gift')    
 router.register(r'swap', views.SwapView, 'swap')   
 router.register(r'user', views.UserViewSet, 'user')  
 router.register(r'profile', views.ProfileView, 'profile') 
