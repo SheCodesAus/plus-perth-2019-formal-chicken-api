@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 import django_heroku
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -30,6 +34,17 @@ ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL=True
 # Application definition
 
+#SendGrid Settings
+EMAIL_BACKEND = 'sendgrid_backend.SendgridBackend'
+# SENDGRID_API_KEY = os.environ.get(SENDGRID_API_KEY)
+SENDGRID_API_KEY=os.getenv('SENDGRID_API_KEY')
+EMAIL_HOST_USER ='BigChick'
+EMAIL_HOST_PASSWORD= os.getenv('EMAIL_HOST_PASSWORD')
+# EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+SENDGRID_SANDBOX_MODE_IN_DEBUG=False
+
 INSTALLED_APPS = [
     'sista_regifta.apps.SistaRegiftaConfig',
     'django.contrib.admin',
@@ -39,7 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'rest_framework', 
+    'rest_framework',
+    'django_filters', 
 ]
 
 MIDDLEWARE = [
@@ -79,23 +95,37 @@ WSGI_APPLICATION = 'sistergifter.wsgi.application'
 
 
 #For local devolopemnt Eleanor 30/11/2019
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': 'mydatabase',
+#     }
+# }
 
+
+##Meagan's database for deployment
 # DATABASES = {
 #   "default": {
 #     "ENGINE": "django.db.backends.postgresql_psycopg2",
 #     "NAME": "formal_chicken",
-#     "USER": "big_chick",
-#     "PASSWORD": "cluckcluck",
+#     "USER": "postgres",
+#     "PASSWORD": "",
 #     "HOST": "localhost",
 #     "PORT": "5432",
 #   }
 # }
+
+
+DATABASES = {
+  "default": {
+    "ENGINE": "django.db.backends.postgresql_psycopg2",
+    "NAME": "formal_chicken",
+    "USER": "big_chick",
+    "PASSWORD": "cluckcluck",
+    "HOST": "localhost",
+    "PORT": "5432",
+  }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -115,6 +145,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Password validation
+# https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -127,7 +174,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+##Changed this as getting naive date time errors
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -142,5 +190,13 @@ CORS_ORIGIN_WHITELIST = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_RENDERER_CLASSES': ['rest_framework.renderers.JSONRenderer', 'rest_framework.renderers.BrowsableAPIRenderer'],
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework_simplejwt.authentication.JWTAuthentication',],
+}
 
 django_heroku.settings(locals())

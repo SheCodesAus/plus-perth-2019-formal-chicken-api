@@ -1,4 +1,6 @@
-
+*.env
 myenv/
 .venv
 sistergifter/mydatabase
+*.pyc
+*.DS_Store
