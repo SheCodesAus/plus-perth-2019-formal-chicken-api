@@ -45,7 +45,7 @@ class ProfileView(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
  
 # send_mail(
@@ -56,18 +56,4 @@ class UserViewSet(viewsets.ModelViewSet):
 #         fail_silently=False,
 #         )
 
-# send_mail(
-#     'Test message2',
-#     'Well I will be very suprised if this works.',
-#     'bigchick@sistaregifta.com',
-#     ['email@test.com'],
-#     fail_silently=False,
-# )
 
-#     "Well this is a fun automated message from Anna's app. Please enjoy it",
-# send_mail(
-#     'Anna is a Django wiz',
-#     'bigchick@sistaregifta.com',
-#     ['email@test.com'],
-#     fail_silently=False,
-# )
